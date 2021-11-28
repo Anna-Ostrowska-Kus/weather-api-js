@@ -16,7 +16,7 @@ const getWeather = () =>{
     const URL = API_LINK + city + API_KEY + API_UNITS
 
     axios.get(URL).then(res =>{ 
-        console.log(res.data)
+        
         const temp = res.data.main.temp
         const hum = res.data.main.humidity
         const status = Object.assign({}, ...res.data.weather)
@@ -25,6 +25,8 @@ const getWeather = () =>{
         temperature.textContent = Math.floor(temp) +'°C'
         humidity.textContent = hum +'%'
         weather.textContent = status.main
+        warning.textContent =''
+        input.value = ''
 
         if(status.id>200 && status.id<231){
             photo.setAttribute('src', './img/thunderstorm.png')
@@ -45,6 +47,8 @@ const getWeather = () =>{
         }
 
     }    
+
+    ).catch(()=> warning.textContent = 'The name of the city is not correct'
 
     )
 }
